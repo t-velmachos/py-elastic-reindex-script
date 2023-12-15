@@ -1,5 +1,7 @@
 # py-elastic-reindex-script
 Automate the Reindexing Process with Python
+## DISCLAIMER
+** This script is under development, I cannot provide any guarantees that the scrict will not create any problem, so use it at your own risk **
 
 How to run the following script:
 1. Start by adding a new indice file inside the indices directory
