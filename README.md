@@ -1,4 +1,8 @@
 # py-elastic-reindex-script
+DISCLAIMER
+
+## ** This script is under development, I cannot provide any guarantees ** 
+
 Automate the Reindexing Process with Python
 
 How to run the following script:
