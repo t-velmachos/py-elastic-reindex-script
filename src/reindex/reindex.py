@@ -20,19 +20,15 @@ class Reindex:
         self.root_path = get_project_root()
         self.selected_indices = os.environ['SELECTED_INDICES']
         self.selected_environment = os.environ['SELECTED_ENVIRONMENT'] 
+        self.es_selected_endpoint = os.environ['SELECTED_ES_ENDPOINT']
         self.es_auth_username = os.environ['ES_AUTH_USERNAME']
         self.es_auth_password = os.environ['ES_AUTH_PASSWORD']
         self.app_settings = { 
             "environment": {
-                "product-develop": { 
-                    "url":"localhost:9300",
+                "dev": { 
+                    "url": self.es_selected_endpoint,
                     "username": self.es_auth_username,
                     "password": self.es_auth_password
-                },
-                "product-staging": { 
-                    "url":"",
-                    "username": "",
-                    "password": ""
                 },
             },
             "debug": False,
@@ -206,7 +202,7 @@ class Reindex:
         
         try:
             resp = None
-            url = "https://" + self.app_settings['environment'][self.selected_environment]['url'] + "/_cat/indices/" + idx + "?v&pretty"
+            url = self.app_settings['environment'][self.selected_environment]['url'] + "/_cat/indices/" + idx + "?v&pretty"
             headers = {'Content-Type': "application/json", 'Accept': "application/json"}
             resp = requests.get(url, timeout=self.app_settings['timeout'], headers=headers, verify=False, auth=HTTPBasicAuth(self.app_settings['environment'][self.selected_environment]['username'],self.app_settings['environment'][self.selected_environment]['password'])) #GET test connection
         except RuntimeError as err:
@@ -242,7 +238,7 @@ class Reindex:
         
         try:
             resp = None
-            url = "https://" + self.app_settings['environment'][self.selected_environment]['url'] + "/" + idx
+            url = self.app_settings['environment'][self.selected_environment]['url'] + "/" + idx
             headers = {'Content-Type': "application/json", 'Accept': "application/json"}
             resp = requests.delete(url, timeout=self.app_settings['timeout'], headers=headers, verify=False, auth=HTTPBasicAuth(self.app_settings['environment'][self.selected_environment]['username'],self.app_settings['environment'][self.selected_environment]['password'])) #GET test connection
         except RuntimeError as err:
@@ -286,7 +282,7 @@ class Reindex:
         
         try:
             resp = None
-            url = "https://" + self.app_settings['environment'][self.selected_environment]['url'] + "/" + idx + "/_settings"
+            url = self.app_settings['environment'][self.selected_environment]['url'] + "/" + idx + "/_settings"
             headers = {'Content-Type': "application/json", 'Accept': "application/json"}
             payload = '{"settings": {"index.blocks.write": ' + block_write + '} }' 
             resp = requests.put(url, timeout=self.app_settings['timeout'], headers=headers, data=payload, verify=False, auth=HTTPBasicAuth(self.app_settings['environment'][self.selected_environment]['username'],self.app_settings['environment'][self.selected_environment]['password']))
@@ -328,7 +324,7 @@ class Reindex:
         
         try:
             resp = None
-            url = "https://" + self.app_settings['environment'][self.selected_environment]['url'] + es_path
+            url = self.app_settings['environment'][self.selected_environment]['url'] + es_path
             headers = {'Content-Type': "application/json", 'Accept': "application/json"}
             resp = requests.post(url, timeout=self.app_settings['timeout'], headers=headers, data=payload, verify=False, auth=HTTPBasicAuth(self.app_settings['environment'][self.selected_environment]['username'],self.app_settings['environment'][self.selected_environment]['password'])) 
         
@@ -382,7 +378,7 @@ class Reindex:
             if self.app_settings['debug']:
                 print("payload",payload)
 
-            url = "https://" + self.app_settings['environment'][self.selected_environment]['url'] + es_path
+            url = self.app_settings['environment'][self.selected_environment]['url'] + es_path
             headers = {'Content-Type': "application/json", 'Accept': "application/json"}
             resp = requests.put(url, timeout=self.app_settings['timeout'], headers=headers, data=payload, verify=False, auth=HTTPBasicAuth(self.app_settings['environment'][self.selected_environment]['username'],self.app_settings['environment'][self.selected_environment]['password']))
         
