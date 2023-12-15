@@ -1,0 +1,7 @@
+{
+    "tvs_test_index1":{
+        "idx_name": "tvs_test_index1",
+        "dst_name": "tvs_test_index_bak",
+        "indexfile": "indices/tvs_test_index1"
+    }
+}
