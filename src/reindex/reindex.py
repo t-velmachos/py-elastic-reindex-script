@@ -105,7 +105,6 @@ class Reindex:
                     else:
                         print('Error status code:',test_result['status_code'])
                         self.errors_tasks_list.add(test_result['index'])
-                        print("error-list:",self.errors_tasks_list )
 
                     # Ensure that the Backup of Destination Index is deleted
                     print("=================\n","Try deleting Index Backup:",destination_idx)
@@ -117,7 +116,6 @@ class Reindex:
                     else:
                         print('Error status code:',delete_backup['status_code'])
                         self.errors_tasks_list.add(delete_backup['index'])
-                        print("error-list:",self.errors_tasks_list )
 
                     # Set index.blocks.write = True
                     print("=================\n","Try Set index.blocks.write = True:",source_idx)
@@ -128,7 +126,6 @@ class Reindex:
                     else:
                         print('Error status code:',update_idx_settings['status_code'])
                         self.errors_tasks_list.add(update_idx_settings['index'])
-                        print("error-list:",self.errors_tasks_list )
 
                     # Clone Original Index
                     print("=================\n","Try Clone source:",source_idx,"destination:",destination_idx )
@@ -141,7 +138,6 @@ class Reindex:
                     else:
                         print('Error status code:',clone_index_resp['status_code'])
                         self.errors_tasks_list.add(clone_index_resp['index'])
-                        print("error-list:",self.errors_tasks_list )
 
                     # Delete Original Index
                     print("=================\n","Try deleting Original Index Backup:",source_idx)
@@ -153,7 +149,6 @@ class Reindex:
                     else:
                         print('Error status code:',delete_backup['status_code'])
                         self.errors_tasks_list.add(delete_backup['index'])
-                        print("error-list:",self.errors_tasks_list )
                     
                     # Create Original Index again with the Correct Mapping
                     print("=================\n","Try Creating Original Index Backup:",source_idx)
@@ -164,7 +159,6 @@ class Reindex:
                     else:
                         print('Error status code:',create_index['status_code'])
                         self.errors_tasks_list.add(create_index['index'])
-                        print("error-list:",self.errors_tasks_list )
 
                     # Try Run Reindex
                     print("=================\n","Try Reindex source:", destination_idx,"destination:",source_idx)
@@ -178,7 +172,6 @@ class Reindex:
                     else:
                         print('Error status code:',reindex_resp['status_code'])
                         self.errors_tasks_list.add(reindex_resp['index'])
-                        print("error-list:",self.errors_tasks_list )
 
                     # Set index.blocks.write = False
                     print("=================\n","Try Set index.blocks.write = False:",source_idx)
@@ -189,7 +182,6 @@ class Reindex:
                     else:
                         print('Error status code:',update_idx_settings['status_code'])
                         self.errors_tasks_list.add(update_idx_settings['index'])
-                        print("error-list:",self.errors_tasks_list )
                     
                     # Add to the completed List
                     self.completed_tasks_list.add(idx)
